@@ -52,7 +52,6 @@ about iot developer guide document
    * 该规则的文本描述。
 * SQL语句
   * 简化的SQL语法，过滤MQTT主题上接收到的消息，执行指定操作。欲了解更多信息，请参阅[Eastsoft IoT SQL参考]()。
-
 * 一个或多个动作
   * 指定的动作。例如，您可以向MongoDB表中插入数据，发送Email、Http服务或调用republish服务。
 
