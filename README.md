@@ -37,5 +37,91 @@ about iot developer guide document
 * ~~你可以拥有多达五个版本的权限命名~~。
 * ~~权限文件大小限制为2048个字符（不包括空格）~~。
 
+# Eastsoft IoT Cloud
+
+开发文档
+
+---
+
+##<a name="creatRule"/>创建规则
+您可以给连接的things中的路由数据配置规则。规则包括以下内容：
+
+- 规则名称
+  + 该规则的名称。
+* 可选的说明
+   * 该规则的文本描述。
+* SQL语句
+  * 简化的SQL语法，过滤MQTT主题上接收到的消息，执行指定操作。欲了解更多信息，请参阅[Eastsoft IoT SQL参考]()。
+
+* 一个或多个动作
+  * 指定的动作。例如，您可以向MongoDB表中插入数据，发送Email、Http服务或调用republish服务。
+
+当您创建一个规则时，要知道向主题发布的数据量。如果您创建包含通配符主题模式的规则，他们可能匹配大部分的信息，你可能需要增加目标动作的资源处理能力。另外，如果你创建一个新的规则，其中包括一个通配符的主题模式，可能会导致无限循环的情况。
+
+**创建一个规则**
+
+调用[创建规则API]()或使用[Eastsoft IoT Cloud前台页面]()创建一条新的规则
+
+
+下面例子是，将发送到IOT/test主题的所有消息插入到指定的MongoDB表中。SQL语句过滤这些消息。
+
+    {
+        "name": "rulename", 
+        "description": "规则描述", 
+        "sql": "SELECT * FROM 'iot/test'", 
+        "status": 0, //0 disable, else enable
+        "actions": [{
+            "mongodb": {
+                "url": "jdbc:mysql://*/iotplatform", 
+                "tablename": "hello", 
+                "username": "eastsoft", 
+                "password": "eastsoft"
+            }
+        }]
+    }
+
+
+下面是执行发送Email动作的规则引擎例子：
+
+    {
+        "name": "rulename", 
+        "description": "规则描述", 
+        "sql": "SELECT * FROM 'iot/test'", 
+        "status": 0, //0 disable, else enable
+        "actions": [{
+            "email": {
+                "receiver": "hanmeimei@gmail.com;lileilei@gmail.com", 
+                "title": "title1"
+            }
+        }]
+    }
+下面是执行调用Http服务动作的规则例子：
+
+    {
+        "name": "rulename", 
+        "description": "规则描述", 
+        "sql": "SELECT * FROM 'iot/test'", 
+        "status": 0, //0 disable, else enable
+        "actions": [{
+            "http": {
+                "url": www.eastsoft.com.cn,
+		            "method": "get"，
+		            "headers":"{"username":"admin","password":"admin"}"
+            }
+        }]
+    }
+下面是与重新发布在不同的MQTT主题的规则的例子：
+
+    {
+        "name": "rulename", 
+        "description": "规则描述", 
+        "sql": "SELECT * FROM 'iot/test'", 
+        "status": 0, //0 disable, else enable
+        "actions": [{
+            "republish": {
+                "topic": "iot/pub/test"
+            }
+        }]
+    }
 
 
