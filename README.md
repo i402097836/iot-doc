@@ -105,8 +105,8 @@ about iot developer guide document
         "actions": [{
             "http": {
                 "url": www.eastsoft.com.cn,
-		"method": "get"，
-		"headers":"{"username":"admin","password":"admin"}"
+                "method": "get"，
+                "headers":"{"username":"admin","password":"admin"}"
             }
         }]
     }
