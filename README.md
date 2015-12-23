@@ -109,7 +109,7 @@ about iot developer guide document
             }
         }]
     }
-下面是与重新发布在不同的MQTT主题的规则的例子：
+下面向不同的MQTT主题重新发布规则的例子：
 
     {
         "name": "rulename", 
